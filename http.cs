@@ -1,13 +1,24 @@
-static async Task<string> FindDataArea(){
-    var client = new HttpClient();
-    var request = new HttpRequestMessage {
-        RequestUri = new Uri("HTTP URL"),
-        Method = HttpMethod.Get,
-        Headers = {
-            { "X-Version", "1" },
-            { HttpRequestHeader.Authorization.ToString(), "Bearer "+ GetAccessToken() },
+using System.Net;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Configuration;   
+using Newtonsoft.Json;        
+using Newtonsoft.Json.Linq;
+
+namespace TestStandard{
+    class Http {
+        static async Task<string> FindDataArea(){
+            var client = new HttpClient();
+            var request = new HttpRequestMessage {
+                RequestUri = new Uri("HTTP URL"),
+                Method = HttpMethod.Get,
+                Headers = {
+                    { "X-Version", "1" },
+                    { HttpRequestHeader.Authorization.ToString(), "Bearer "+ GetAccessToken() },
+            }
+            };
+           var response = client.SendAsync(request).Result;
+           return await response.Content.ReadAsStringAsync();
+        }
     }
-    };
-   var response = client.SendAsync(request).Result;
-   return await response.Content.ReadAsStringAsync();
 }
