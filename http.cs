@@ -21,8 +21,6 @@ namespace TestStandard{
            return await response.Content.ReadAsStringAsync();
         }
         
-        
-        
         static string HttpCallFormBody()
         {
             var content = new Dictionary<string, string>();
@@ -34,7 +32,8 @@ namespace TestStandard{
             {
                 Method = HttpMethod.Post,
                 RequestUri = new Uri("https://east02.pcawebapi.jp/v1/Acc20/Auth/Token"),
-                Content = new FormUrlEncodedContent(content)
+                Content = new FormUrlEncodedContent(content)//FormURL
+                //Content = new StringContent("{\"name\":\"John Doe\",\"age\":33}", Encoding.UTF8, "application/json"); //Raw
             };
             var response = client.SendAsync(httpRequestMessage).Result;
             var responsedata = response.Content.ReadAsStringAsync().Result;
